@@ -1,4 +1,4 @@
-package main
+package v1
 
 import (
 	"net/http"
@@ -19,13 +19,4 @@ func visit(c echo.Context) error {
 	sendDate := c.FormValue("send_date")
 	steps := c.FormValue("steps")
 	return c.String(http.StatusOK, "user_id:"+userID+", beacon_id:"+beaconID+", send_date:"+sendDate+", steps:"+steps)
-}
-
-func main() {
-	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-	e.POST("/visit", visit)
-	e.Logger.Fatal(e.Start(":1323"))
 }
