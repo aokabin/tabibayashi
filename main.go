@@ -3,25 +3,21 @@ package main
 import (
 	"context"
 
+	"github.com/motemen/ghq/utils"
+
 	"github.com/aokabin/tabibayashi/kvs"
 	"github.com/aokabin/tabibayashi/v1"
-	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
 )
 
 var (
 	s *echo.Echo
-	r *redis.Client
 )
 
 func main() {
 	defer shutdownServer()
-	initDBClients()
+	utils.PanicIf(kvs.Connection())
 	startServer()
-}
-
-func initDBClients() {
-	r = kvs.KVSConnection()
 }
 
 func startServer() {
