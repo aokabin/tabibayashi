@@ -3,28 +3,28 @@ package main
 import (
 	"context"
 
+	"github.com/aokabin/tabibayashi/kvs"
 	"github.com/aokabin/tabibayashi/v1"
+	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
 )
 
 var (
 	s *echo.Echo
+	r *redis.Client
 )
 
 func main() {
 	defer shutdownServer()
-
-	startServe()
-	// e := v1.
-	// e.GET("/", func(c echo.Context) error {
-	// 	return c.String(http.StatusOK, "Hello, World!")
-	// })
-	// e.POST("/visit", visit)
-	// e.Logger.Fatal(e.Start(":1323"))
-
+	initDBClients()
+	startServer()
 }
 
-func startServe() {
+func initDBClients() {
+	r = kvs.KVSConnection()
+}
+
+func startServer() {
 	s = v1.EchoHandler()
 	s.Start(":1323")
 }
