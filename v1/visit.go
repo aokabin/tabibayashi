@@ -1,9 +1,16 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
+	"github.com/aokabin/tabibayashi/kvs"
+	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
+)
+
+var (
+	r *redis.Client
 )
 
 func Visit(c echo.Context) error {
@@ -14,9 +21,20 @@ func Visit(c echo.Context) error {
 		send_date: 送信日時(unix timeとかがいいかもです)
 		steps: 前のビーコンからの歩数
 	*/
+
 	userID := c.FormValue("user_id")
-	beaconID := c.FormValue("beacon_id")
-	sendDate := c.FormValue("send_date")
-	steps := c.FormValue("steps")
-	return c.String(http.StatusOK, "user_id:"+userID+", beacon_id:"+beaconID+", send_date:"+sendDate+", steps:"+steps)
+	vd := kvs.VisitData{}
+	vd.BeaconID = c.FormValue("beacon_id")
+	vd.SendDate = c.FormValue("send_date")
+	vd.Steps = c.FormValue("steps")
+
+	kvs.AddVisitData(userID, &vd)
+	lastVD, err := kvs.GetLastVisitData(userID)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(vd)
+	fmt.Println(*lastVD)
+
+	return c.String(http.StatusOK, "user_id:"+userID+", beacon_id:"+vd.BeaconID+", send_date:"+vd.SendDate+", steps:"+vd.Steps)
 }
