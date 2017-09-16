@@ -5,6 +5,7 @@ import (
 
 	"github.com/motemen/ghq/utils"
 
+	"github.com/aokabin/tabibayashi/config"
 	"github.com/aokabin/tabibayashi/kvs"
 	"github.com/aokabin/tabibayashi/v1"
 	"github.com/labstack/echo"
@@ -22,7 +23,7 @@ func main() {
 
 func startServer() {
 	s = v1.EchoHandler()
-	s.Start(":1323")
+	s.Start(":" + config.ServerPort())
 }
 
 func shutdownServer() {

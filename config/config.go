@@ -3,8 +3,9 @@ package config
 import "github.com/kelseyhightower/envconfig"
 
 type Configuration struct {
-	RedisHost string `envconfig:"REDIS_HOST" default:"localhost"`
-	RedisPort string `envconfig:"REDIS_PORT" default:"6379"`
+	RedisHost  string `envconfig:"REDIS_HOST" default:"localhost"`
+	RedisPort  string `envconfig:"REDIS_PORT" default:"6379"`
+	ServerPort string `default:"1323"`
 }
 
 var (
@@ -29,4 +30,8 @@ func RedisHost() string {
 
 func RedisPort() string {
 	return c.RedisPort
+}
+
+func ServerPort() string {
+	return c.ServerPort
 }
