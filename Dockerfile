@@ -1,8 +1,8 @@
-FROM golang:alpine
+FROM alpine:3.4
 
 WORKDIR /app
-COPY hoge.go /app
+COPY main /app
 
-EXPOSE 8000
+EXPOSE 1323
 
-CMD ["go","run","hoge.go"]
+CMD ["./main"]
