@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/aokabin/tabibayashi/kvs"
@@ -29,12 +28,6 @@ func Visit(c echo.Context) error {
 	vd.Steps = c.FormValue("steps")
 
 	kvs.AddVisitData(userID, &vd)
-	lastVD, err := kvs.GetLastVisitData(userID)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(vd)
-	fmt.Println(*lastVD)
 
 	return c.String(http.StatusOK, "user_id:"+userID+", beacon_id:"+vd.BeaconID+", send_date:"+vd.SendDate+", steps:"+vd.Steps)
 }
