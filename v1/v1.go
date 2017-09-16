@@ -10,7 +10,7 @@ import (
 func EchoHandler() *echo.Echo {
 	e := echo.New()
 	v1 := e.Group("/v1")
-	v1.Use(middleware.SampleFunc)
+	v1.Use(middleware.V1GroupFunc)
 
 	useV1Group(v1)
 

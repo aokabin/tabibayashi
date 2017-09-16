@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func v1GroupFunc(next echo.HandlerFunc) echo.HandlerFunc {
+func V1GroupFunc(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		fmt.Println("Before")
 		next(c)
