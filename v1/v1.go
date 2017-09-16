@@ -12,13 +12,13 @@ func EchoHandler() *echo.Echo {
 	v1 := e.Group("/v1")
 	v1.Use(middleware.SampleFunc)
 
-	useSampleGroup(v1)
+	useV1Group(v1)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	e.POST("/visit", visit)
+	e.POST("/visit", Visit)
 	// e.Logger.Fatal(e.Start(":1323"))
 	return e
 }

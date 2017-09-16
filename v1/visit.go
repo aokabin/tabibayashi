@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func visit(c echo.Context) error {
+func Visit(c echo.Context) error {
 	// Get name and email
 	/*
 		user_id: ユーザーのtwitterとかのidになる、例) "twitter#123456789"
