@@ -1,0 +1,58 @@
+package v1
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+
+	"github.com/aokabin/tabibayashi/kvs"
+	"github.com/labstack/echo"
+)
+
+type RecievedData struct {
+	VisitData []VisitData `json:"visits"`
+}
+
+type VisitData struct {
+	BeaconID string `json:"beacon_id"`
+	SendDate string `json:"send_date"`
+	Steps    string `json:"steps"`
+}
+
+func CreateMusic(c echo.Context) error {
+	userID := c.FormValue("user_id")
+	var rd RecievedData
+	visits := c.FormValue("visits")
+	err := json.Unmarshal([]byte(visits), &rd)
+
+	fmt.Println(visits)
+
+	vds, err := kvs.GetAllVisitData(userID)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// TODO: このあたりで作曲の関数を呼ぶ、goroutineかな
+	for _, vd := range vds {
+		fmt.Println(vd)
+
+	}
+
+	// 作曲が正常に終わったらキーを削除
+	// kvs.RemoveVisitData(userID)
+
+	return c.String(http.StatusAccepted, "Accepted")
+}
+
+func GetMusic(c echo.Context) error {
+	userID := c.FormValue("user_id")
+	fmt.Println(userID)
+	/*
+		1. ユーザーの情報をdatastoreに取りに行く
+		2. もしurlの欄がなければ、まだできていないので、まだできてないレスポンスを返す
+		3. あれば、そのurlを返す
+	*/
+
+	return c.String(http.StatusAccepted, "Accepted")
+
+}

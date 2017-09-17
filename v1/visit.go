@@ -27,5 +27,5 @@ func Visit(c echo.Context) error {
 
 	kvs.AddVisitData(userID, &vd)
 
-	return c.String(http.StatusOK, "user_id:"+userID+", beacon_id:"+vd.BeaconID+", send_date:"+vd.SendDate+", steps:"+vd.Steps)
+	return c.String(http.StatusAccepted, "Accepted")
 }
