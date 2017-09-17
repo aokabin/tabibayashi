@@ -18,7 +18,5 @@ func EchoHandler() *echo.Echo {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	e.POST("/visit", Visit)
-	// e.Logger.Fatal(e.Start(":1323"))
 	return e
 }
