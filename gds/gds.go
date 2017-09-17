@@ -17,8 +17,8 @@ var (
 )
 
 type Weather struct {
-	Temp int `datastore:",noindex"`
-	Wind int `datastore:",noindex"`
+	Temp float32 `datastore:",noindex"`
+	Wind float32 `datastore:",noindex"`
 	Time int
 }
 

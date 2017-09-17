@@ -9,8 +9,8 @@ import (
 
 func TestPutWeatherData(t *testing.T) {
 	weather := Weather{
-		Temp: 20,
-		Wind: 15,
+		Temp: 20.1,
+		Wind: 15.5,
 		Time: 1505626154,
 	}
 	err := PutWeatherData(weather)
@@ -27,9 +27,4 @@ func TestGetRecentWeather(t *testing.T) {
 	fmt.Println(w)
 
 	assert.Nil(t, err)
-}
-
-func TestSampleQuery(t *testing.T) {
-	SampleQuery()
-
 }
