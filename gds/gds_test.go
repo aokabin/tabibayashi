@@ -3,6 +3,7 @@ package gds
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -27,4 +28,24 @@ func TestGetRecentWeather(t *testing.T) {
 	fmt.Println(w)
 
 	assert.Nil(t, err)
+}
+
+func TestGetAllBeacons(t *testing.T) {
+	beacons, err := GetAllBeacons()
+	fmt.Println(beacons)
+	assert.Nil(t, err)
+}
+
+func TestCreateBeacon(t *testing.T) {
+	beacon := Beacon{
+		ID:         "zzzzzzz",
+		MajorValue: "1",
+		MinorValue: "0",
+		CreatedAt:  int(time.Now().Unix()),
+	}
+
+	err := CreateBeacon(beacon)
+
+	assert.Nil(t, err)
+
 }

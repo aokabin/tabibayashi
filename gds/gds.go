@@ -22,6 +22,13 @@ type Weather struct {
 	Time int
 }
 
+type Beacon struct {
+	ID         string
+	MajorValue string
+	MinorValue string
+	CreatedAt  int
+}
+
 func init() {
 	ctx = context.Background()
 	kind = "Weather"
@@ -90,4 +97,34 @@ func GetRecentWeather(time int) (*Weather, error) {
 
 	return &beforeWeather, nil
 
+}
+
+func GetAllBeacons() ([]Beacon, error) {
+	query := datastore.NewQuery("Beacon").Order("-Time")
+	it := c.Run(ctx, query)
+	beacons := []Beacon{}
+	for {
+		var beacon Beacon
+		_, err := it.Next(&beacon)
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+
+		beacons = append(beacons, beacon)
+
+	}
+
+	return beacons, nil
+}
+
+func CreateBeacon(b Beacon) error {
+	ctx := context.Background()
+	beaconKey := datastore.IncompleteKey("Beacon", nil)
+
+	_, err := c.Put(ctx, beaconKey, &b)
+
+	return err
 }
