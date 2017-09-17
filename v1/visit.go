@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/aokabin/tabibayashi/kvs"
@@ -21,6 +22,8 @@ func Visit(c echo.Context) error {
 	vd.BeaconID = c.FormValue("beacon_id")
 	vd.SendDate = c.FormValue("send_date")
 	vd.Steps = c.FormValue("steps")
+
+	fmt.Println(vd)
 
 	kvs.AddVisitData(userID, &vd)
 

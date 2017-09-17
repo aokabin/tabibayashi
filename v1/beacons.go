@@ -7,10 +7,6 @@ import (
 	"github.com/labstack/echo"
 )
 
-type Beacons struct {
-	Info []Beacon `json:"info"`
-}
-
 type Beacon struct {
 	ID         string `json:"id"`
 	MajorValue string `json:"major_value"`
@@ -33,9 +29,5 @@ func GetBeacons(c echo.Context) error {
 		return err
 	}
 
-	info := Beacons{
-		Info: beacons,
-	}
-
-	return c.JSON(http.StatusOK, info)
+	return c.JSON(http.StatusOK, beacons)
 }
