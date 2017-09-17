@@ -44,3 +44,10 @@ func TestGetLastVisitData(t *testing.T) {
 	assert.NotNil(t, vd)
 	assert.Equal(t, vd, *lastVD)
 }
+
+func TestGetAllVisitData(t *testing.T) {
+	vds, err := GetAllVisitData("x")
+	assert.Nil(t, err)
+
+	fmt.Println(vds)
+}
