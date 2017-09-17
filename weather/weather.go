@@ -1,5 +1,5 @@
 package weather
 
-func getWeather() {
+func getWeather(sendDate: int) {
 
 }
