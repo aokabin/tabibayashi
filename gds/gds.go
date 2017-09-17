@@ -100,7 +100,7 @@ func GetRecentWeather(time int) (*Weather, error) {
 }
 
 func GetAllBeacons() ([]Beacon, error) {
-	query := datastore.NewQuery("Beacon").Order("-Time")
+	query := datastore.NewQuery("Beacon")
 	it := c.Run(ctx, query)
 	beacons := []Beacon{}
 	for {

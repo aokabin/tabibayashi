@@ -4,12 +4,7 @@ import (
 	"net/http"
 
 	"github.com/aokabin/tabibayashi/kvs"
-	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
-)
-
-var (
-	r *redis.Client
 )
 
 func Visit(c echo.Context) error {
