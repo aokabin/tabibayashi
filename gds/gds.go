@@ -76,6 +76,7 @@ func GetRecentWeather(time int) (*Weather, error) {
 			break
 		}
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 	}
@@ -90,6 +91,7 @@ func GetRecentWeather(time int) (*Weather, error) {
 			break
 		}
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 	}
@@ -117,6 +119,7 @@ func GetAllBeacons() ([]Beacon, error) {
 			break
 		}
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 
@@ -154,6 +157,7 @@ func GetMusicURL(userID string) (*Music, error) {
 			break
 		}
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 	}

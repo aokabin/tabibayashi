@@ -41,6 +41,7 @@ func CreateMusic(c echo.Context) error {
 		}
 		_, err := kvs.AddVisitData(userID, &visitData)
 		if err != nil {
+			fmt.Println(err)
 			return err
 		}
 	}
@@ -73,6 +74,7 @@ func GetMusicURL(c echo.Context) error {
 
 	music, err := gds.GetMusicURL(userID)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 

@@ -26,10 +26,12 @@ type WeatherJSON struct {
 func SaveWeatherData() error {
 	w, err := getWeatherData()
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	time, err := strconv.Atoi(w.CurrentObservation.Time)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	weather := gds.Weather{
@@ -39,6 +41,7 @@ func SaveWeatherData() error {
 	}
 	err = gds.PutWeatherData(weather)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -49,6 +52,7 @@ func getWeatherData() (*WeatherJSON, error) {
 	resp, err := http.Get("http://api.wunderground.com/api/cc4e59b34bd83b1f/conditions/q/JP/Kyoto.json")
 
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
@@ -56,12 +60,14 @@ func getWeatherData() (*WeatherJSON, error) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
 	var weather WeatherJSON
 	err = json.Unmarshal([]byte(string(body)), &weather)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 

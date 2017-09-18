@@ -36,6 +36,7 @@ func Connection() *storage.Client {
 	ctx := context.Background()
 	c, err := storage.NewClient(ctx)
 	if err != nil {
+		fmt.Println(err)
 		return nil
 	}
 	return c
@@ -79,6 +80,7 @@ func readFileBinary(filePath string) ([]byte, error) {
 
 	buf, err := ioutil.ReadAll(f)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	fmt.Println(len(buf))

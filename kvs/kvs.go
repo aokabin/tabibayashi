@@ -3,6 +3,7 @@ package kvs
 import (
 	"bytes"
 	"encoding/gob"
+	"fmt"
 
 	"github.com/motemen/ghq/utils"
 
@@ -66,6 +67,7 @@ func GetAllVisitData(key string) ([]VisitData, error) {
 	var vds []VisitData
 	binVDs, err := c.LRange(key, 0, -1).Result()
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 

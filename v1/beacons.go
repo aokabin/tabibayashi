@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/aokabin/tabibayashi/gds"
@@ -26,6 +27,7 @@ func GetBeacons(c echo.Context) error {
 		beacons = append(beacons, beacon)
 	}
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 

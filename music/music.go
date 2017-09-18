@@ -65,6 +65,7 @@ func CreateMusicData(vds []kvs.VisitData, userID string) ([]byte, error) {
 	for _, vd := range vds {
 		ms, err := createMusicSource(vd)
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 		mss = append(mss, *ms)
@@ -84,6 +85,7 @@ func CreateMusicData(vds []kvs.VisitData, userID string) ([]byte, error) {
 
 	err = gds.CreateMusicURL(music)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
@@ -100,10 +102,12 @@ func CreateMusic(vds []kvs.VisitData, userID string) {
 func createMusicSource(vd kvs.VisitData) (*MusicSource, error) {
 	utime, err := strconv.ParseInt(vd.SendDate, 10, 64)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	season, err := getSeason(utime)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	// 一旦ランダム
