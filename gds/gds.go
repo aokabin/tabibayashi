@@ -17,9 +17,10 @@ var (
 )
 
 type Weather struct {
-	Temp float32 `datastore:",noindex"`
-	Wind float32 `datastore:",noindex"`
-	Time int
+	Weather string  `datastore:",noindex"`
+	Temp    float32 `datastore:",noindex"`
+	Wind    float32 `datastore:",noindex"`
+	Time    int
 }
 
 type Beacon struct {
