@@ -193,22 +193,22 @@ func sampleBinaryData(mss []MusicSource) ([]byte, error) {
 	loops := len(mss)
 	pattern = selectPattern(mss)
 	rtnbuf = joinMusic(loops, pattern)
-	return nil, rtnbuf
-	f, err := os.Open("/Users/kd/go/src/github.com/aokabin/tabibayashi/sample.wav")
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-	defer f.Close()
+	
+	// f, err := os.Open("/Users/kd/go/src/github.com/aokabin/tabibayashi/sample.wav")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return nil, err
+	// }
+	// defer f.Close()
 
-	buf, err := ioutil.ReadAll(f)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
+	// buf, err := ioutil.ReadAll(f)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return nil, err
+	// }
 
 	fmt.Println("Music was created!...")
-	return buf, nil
+	return rtnbuf, nil
 
 }
 func selectPattern(mss []MusicSource) []string {
