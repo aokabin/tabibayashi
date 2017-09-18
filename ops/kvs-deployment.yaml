@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tabibayashi-redis-master
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: tabibayashi-redis-master
+    spec:
+      containers:
+      - name: tabibayashi-redis-master
+        image: redis:latest
+        ports:
+        - containerPort: 6379

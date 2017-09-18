@@ -3,6 +3,7 @@ package kvs
 import (
 	"bytes"
 	"encoding/gob"
+	"fmt"
 
 	"github.com/motemen/ghq/utils"
 
@@ -60,4 +61,27 @@ func AddVisitData(key string, vd *VisitData) (int64, error) {
 func GetLastVisitData(key string) (*VisitData, error) {
 	vd, err := getLastListData(key)
 	return vd, err
+}
+
+func GetAllVisitData(key string) ([]VisitData, error) {
+	var vds []VisitData
+	binVDs, err := c.LRange(key, 0, -1).Result()
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	for _, d := range binVDs {
+		buf := bytes.NewBuffer([]byte(d))
+		var vd VisitData
+		gob.NewDecoder(buf).Decode(&vd)
+		vds = append(vds, vd)
+	}
+
+	return vds, nil
+}
+
+func RemoveVisitData(key string) error {
+	err := c.Del(key).Err()
+	return err
 }

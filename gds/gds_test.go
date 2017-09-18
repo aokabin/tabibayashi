@@ -49,3 +49,23 @@ func TestCreateBeacon(t *testing.T) {
 	assert.Nil(t, err)
 
 }
+
+func TestCreateMusicURL(t *testing.T) {
+	music := Music{
+		ID:       "xxx",
+		SoundURL: "https://storage.googleapis.com/tabibayashi-musics/a4a902d7-24c5-4b4a-a800-226dcc260600Goroutine.md",
+		// SoundURL:  "https://drive.google.com/open?id=0B2XteJUUmo3Jd3NwN05UNlNObEE",
+		CreatedAt: int(time.Now().Unix()),
+	}
+
+	err := CreateMusicURL(music)
+
+	assert.Nil(t, err)
+
+}
+
+func TestGetMusicURL(t *testing.T) {
+	music, err := GetMusicURL("xxx")
+	assert.Nil(t, err)
+	fmt.Println(music)
+}

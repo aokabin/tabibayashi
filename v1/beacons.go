@@ -1,15 +1,12 @@
 package v1
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/aokabin/tabibayashi/gds"
 	"github.com/labstack/echo"
 )
-
-type Beacons struct {
-	Info []Beacon `json:"info"`
-}
 
 type Beacon struct {
 	ID         string `json:"id"`
@@ -30,12 +27,9 @@ func GetBeacons(c echo.Context) error {
 		beacons = append(beacons, beacon)
 	}
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
-	info := Beacons{
-		Info: beacons,
-	}
-
-	return c.JSON(http.StatusOK, info)
+	return c.JSON(http.StatusOK, beacons)
 }
