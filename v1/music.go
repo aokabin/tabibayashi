@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/aokabin/tabibayashi/gds"
 	"github.com/aokabin/tabibayashi/kvs"
+	"github.com/aokabin/tabibayashi/music"
 	"github.com/labstack/echo"
 )
 
@@ -17,6 +19,10 @@ type VisitData struct {
 	BeaconID string `json:"beacon_id"`
 	SendDate string `json:"send_date"`
 	Steps    string `json:"steps"`
+}
+
+type Data struct {
+	URL string
 }
 
 func CreateMusic(c echo.Context) error {
@@ -33,18 +39,18 @@ func CreateMusic(c echo.Context) error {
 	}
 
 	// TODO: このあたりで作曲の関数を呼ぶ、goroutineかな
+	go music.CreateMusic(vds, userID)
 	for _, vd := range vds {
 		fmt.Println(vd)
-
 	}
 
 	// 作曲が正常に終わったらキーを削除
-	// kvs.RemoveVisitData(userID)
+	kvs.RemoveVisitData(userID)
 
 	return c.String(http.StatusAccepted, "Accepted")
 }
 
-func GetMusic(c echo.Context) error {
+func GetMusicURL(c echo.Context) error {
 	userID := c.FormValue("user_id")
 	fmt.Println(userID)
 	/*
@@ -53,6 +59,15 @@ func GetMusic(c echo.Context) error {
 		3. あれば、そのurlを返す
 	*/
 
-	return c.String(http.StatusAccepted, "Accepted")
+	music, err := gds.GetMusicURL(userID)
+	if err != nil {
+		return err
+	}
+
+	data := Data{
+		URL: music.SoundURL,
+	}
+
+	return c.JSON(http.StatusOK, data)
 
 }

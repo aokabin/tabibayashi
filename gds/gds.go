@@ -29,6 +29,12 @@ type Beacon struct {
 	CreatedAt  int
 }
 
+type Music struct {
+	ID        string
+	SoundURL  string
+	CreatedAt int
+}
+
 func init() {
 	ctx = context.Background()
 	kind = "Weather"
@@ -127,4 +133,29 @@ func CreateBeacon(b Beacon) error {
 	_, err := c.Put(ctx, beaconKey, &b)
 
 	return err
+}
+
+func CreateMusicURL(m Music) error {
+	musicKey := datastore.IncompleteKey("Music", nil)
+
+	_, err := c.Put(ctx, musicKey, &m)
+
+	return err
+}
+
+func GetMusicURL(userID string) (*Music, error) {
+	query := datastore.NewQuery("Music").Order("-CreatedAt").Limit(1)
+	it := c.Run(ctx, query)
+	var music Music
+	for {
+		_, err := it.Next(&music)
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &music, nil
 }

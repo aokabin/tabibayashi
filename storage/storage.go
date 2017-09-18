@@ -10,6 +10,7 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/aokabin/tabibayashi/config"
+	"github.com/satori/go.uuid"
 )
 
 var (
@@ -40,26 +41,31 @@ func Connection() *storage.Client {
 	return c
 }
 
-func uploadToStorage(fileData []byte, fileName string) error {
+func uploadToStorage(fileData []byte, fileName string) (string, error) {
 	bucketName := config.BucketName()
 
 	ctx := context.Background()
 
 	fmt.Println(bucketName)
 
-	w := c.Bucket(bucketName).Object(fileName).NewWriter(ctx)
+	name := uuid.NewV4().String() + fileName
+	w := c.Bucket(bucketName).Object(name).NewWriter(ctx)
+	w.ACL = []storage.ACLRule{{Entity: storage.AllUsers, Role: storage.RoleReader}}
+
 	defer w.Close()
 
 	if n, err := w.Write(fileData); err != nil {
-		return err
+		return "", err
 	} else if n != len(fileData) {
-		return err
+		return "", err
 	}
 	if err := w.Close(); err != nil {
-		return err
+		return "", err
 	}
 
-	return nil
+	publicURL := "https://storage.googleapis.com/" + bucketName + "/" + name
+
+	return publicURL, nil
 
 }
 
@@ -79,13 +85,14 @@ func readFileBinary(filePath string) ([]byte, error) {
 	return buf, nil
 }
 
-func UploadFile(localFilePath, remoteFileName string) error {
+func UploadFile(localFilePath, remoteFileName string) (string, error) {
 	buf, err := readFileBinary(localFilePath)
-	err = uploadToStorage(buf, remoteFileName)
-	return err
+	url, err := uploadToStorage(buf, remoteFileName)
+	return url, err
 
 }
 
-func UploadBinaryData(data []byte, fileName string) error {
-	return uploadToStorage(data, fileName)
+func UploadBinaryData(data []byte, fileName string) (string, error) {
+	url, err := uploadToStorage(data, fileName)
+	return url, err
 }
