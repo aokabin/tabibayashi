@@ -27,11 +27,23 @@ type Data struct {
 
 func CreateMusic(c echo.Context) error {
 	userID := c.FormValue("user_id")
-	var rd RecievedData
+	var vd []VisitData
 	visits := c.FormValue("visits")
-	err := json.Unmarshal([]byte(visits), &rd)
+	err := json.Unmarshal([]byte(visits), &vd)
 
-	fmt.Println(visits)
+	fmt.Println(vd)
+
+	for _, v := range vd {
+		visitData := kvs.VisitData{
+			BeaconID: v.BeaconID,
+			SendDate: v.SendDate,
+			Steps:    v.Steps,
+		}
+		_, err := kvs.AddVisitData(userID, &visitData)
+		if err != nil {
+			return err
+		}
+	}
 
 	vds, err := kvs.GetAllVisitData(userID)
 	if err != nil {
