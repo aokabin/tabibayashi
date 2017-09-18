@@ -14,7 +14,7 @@ func TestGetMusicFilePath(t *testing.T) {
 }
 
 func TestGetMusicData(t *testing.T) {
-	buf := GetMusicData()
+	buf := sampleBinaryData()
 	fmt.Println(buf)
 }
 
