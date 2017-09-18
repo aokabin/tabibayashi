@@ -22,12 +22,12 @@ func TestCreateMuisicData(t *testing.T) {
 
 	v1 := kvs.VisitData{
 		BeaconID: "hogehoge",
-		SendDate: "0000000",
+		SendDate: "1505700832",
 		Steps:    "1000",
 	}
 	v2 := kvs.VisitData{
 		BeaconID: "hoge",
-		SendDate: "0000",
+		SendDate: "1505700032",
 		Steps:    "10",
 	}
 
