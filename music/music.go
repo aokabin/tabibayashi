@@ -308,7 +308,7 @@ func joinMusic(loops int, pattern []string) *bytes.Buffer {
 	}
 
 	// configure mix
-	bind.UseOutputString(out)
+	bind.UseOutputString("wav")
 	bind.UseLoaderString(loader)
 	defer mix.Teardown()
 	mix.Configure(specs)
