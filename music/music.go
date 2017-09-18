@@ -59,6 +59,9 @@ func CreateMusicData(vds []kvs.VisitData, userID string) ([]byte, error) {
 
 	mss := []MusicSource{}
 
+	fmt.Println("This is vds")
+	fmt.Println(vds)
+
 	for _, vd := range vds {
 		ms, err := createMusicSource(vd)
 		if err != nil {
@@ -170,17 +173,21 @@ func getWind(wind float32) (string, error) {
 }
 
 func sampleBinaryData(mss []MusicSource) ([]byte, error) {
-	f, err := os.Open("../sample.wav")
+	fmt.Println("Creating Music...")
+	f, err := os.Open("/Users/kd/go/src/github.com/aokabin/tabibayashi/sample.wav")
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 	defer f.Close()
 
 	buf, err := ioutil.ReadAll(f)
 	if err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
+	fmt.Println("Music was created!...")
 	return buf, nil
 
 }
