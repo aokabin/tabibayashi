@@ -156,7 +156,7 @@ func getSeason(utime int64) (string, error) {
 
 func getSpot(beaconID string) (string, error) {
 	// spotList := []string{"100", "200", "300", "301"}
-	spotList := []string{"100", "300"}
+	spotList := []string{"100", "200", "300"}
 	return shuffle(spotList), nil
 
 }
