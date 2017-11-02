@@ -14,8 +14,9 @@ func TestGetMusicFilePath(t *testing.T) {
 }
 
 func TestGetMusicData(t *testing.T) {
-	buf := sampleBinaryData()
-	fmt.Println(buf)
+	// buf, err := sampleBinaryData()
+	// fmt.Println(buf)
+	// assert.Nil(t, err)
 }
 
 func TestCreateMuisicData(t *testing.T) {

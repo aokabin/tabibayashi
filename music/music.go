@@ -80,8 +80,9 @@ func CreateMusicData(vds []kvs.VisitData, userID string) ([]byte, error) {
 
 	// ここでmssを渡す、[]byteを受け取る
 	buf, err := sampleBinaryData(mss)
+	fmt.Println(buf)
 
-	fileName := uuid.NewV4().String() + ".wav"
+	fileName := uuid.NewV4().String() + ".mp3"
 	url, err := storage.UploadBinaryData(buf, fileName)
 
 	music := gds.Music{
@@ -162,7 +163,7 @@ func getSeason(utime int64) (string, error) {
 }
 
 func getSpot(beaconID string) (string, error) {
-	spotList := []string{"100", "200", "300", "301"}
+	spotList := []string{"100", "200", "300"}
 	return shuffle(spotList), nil
 
 }
@@ -205,7 +206,7 @@ func sampleBinaryData(mss []MusicSource) ([]byte, error) {
 	// }
 
 	fmt.Println("Music was created!...")
-	return rtnbuf, nil
+	return rtnbuf.Bytes(), nil
 
 }
 
@@ -306,7 +307,7 @@ func joinMusic(loops int, pattern []string) *bytes.Buffer {
 	}
 
 	// configure mix
-	bind.UseOutputString(out)
+	bind.UseOutputString("wav")
 	bind.UseLoaderString(loader)
 	defer mix.Teardown()
 	mix.Configure(specs)
